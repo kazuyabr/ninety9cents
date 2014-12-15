@@ -3,13 +3,14 @@ WORK TIMELINE
 FRI - Get spec written as well as initial research
 			Create the (empty) app, start a GitHub repository and create the database and models
 SAT - Get basic controllers and views in place including all page links
-SUN - As above
-MON - Get testing in place and test
+SUN - Get basic auction creation and bid functionality working
+MON - Build in all remaining findamental features and checks
 TUE - 
 WED - Initial deployment
 			Styling - use SASS?
 THU - Extension(s)
-FRI - Documentation tidy up
+FRI - Get testing in place and test
+			Documentation tidy up
 			Code tidy up
 			Final deployment
 
@@ -23,6 +24,7 @@ TO ASK ABOUT
 ------------
 Problem with validation errors also showing the array as well as the relevant errors
 Is storing information in the session a bad idea? What are some other ways?
+Can databases always be relied upon to return data in order?
 
 QUESTIONS - GENERAL
 ===================
@@ -34,7 +36,7 @@ WDI PROJECT THREE - 99CENTS
 OVERVIEW
 ========
 
-A grass roots auction app to encourage people to list auctions at 99 cents. It will be aimed at those peole who just want to sell theiR goods that they no longer need and allow buyers to pick up a bargain. The can list a minimum bid or buy it now price if preferred but this will incur costs. A sale fee will apply if the auction item sells
+A grass roots auction app to encourage people to list auctions at 99 cents. It will be aimed at those peole who just want to sell their goods that they no longer need and allow buyers to pick up a bargain. The can list a minimum bid or buy it now price if preferred but this will incur costs. A sale fee will apply if the auction item sells
 
 MODELS
 ======
@@ -109,29 +111,31 @@ Auction just ended
 
 EXTENSIONS
 ==========
-* Prevent bidding on one's own auctions
-* Show the winning user as the auction progresses
+
+DONE Handle the case where a second user enters the same high bid as the winning bidder
+DONE Prevent bidding on one's own auctions
+* Advise on an auction whether a bidder is winning or outbid and who holds the auction so far
+DONE Enable high bidders to increase their bid (without increasing the current bid)
+* Show bidder's high bid on the auction if they are winning
 * Add ability to schedule auction start times
 * Add bidding history
+* Questions and answers about the auction
+* Schedule a listing start time for an auction
+* Show whether or not the reserve has been met
 * Add Devise authentication (also add confirmable and lockable)
 * Add admin functionality
 * Think of ways of making the site dynamic, e.g. have a popup for bidding instead of a separate page
+* List auctions by category
 * Searching, especially by category
 * Additional pictures and the ability to dynamically view them in a (popup?) window
 * Admin account for user request management
 * Email notification for such things as when they win/sell an item, when listings are about to close, when they get outbid, etc.
 * Auction watch list
 * Make the app responsive (mobile first)
-* Feedback (name it something else - perhaps Reputation)
+* Add a Feedback feature (name it something else - perhaps Reputation)
 * Payment facility for users and bidders
 * Payment setup for ended auctions
-* Questions and answers about the auction
 * Postage and payment options
-* Schedule a listing start time for an auction
-* Have a username choice system to ensure that each username is unique
-* Add other login authentication options (Facebook, etc.)
-* Validate ALL user input
-* Show whether or not the reserve has been met
 * Increase the increment according to the value of the item
 
 RESOURCES
