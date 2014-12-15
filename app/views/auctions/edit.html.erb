@@ -1,0 +1,12 @@
+<h2>Edit Auction Description</h2>
+
+<div>
+	<%= form_for @auction do |f| %>
+
+	<p><%= f.label :description, 'Description' %></p>
+	<p><%= f.text_area :description, cols: 100, rows: 10 %></p>
+
+	<button>Update</button>
+
+	<% end %>
+</div>

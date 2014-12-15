@@ -1,0 +1,17 @@
+<h2>Change Account Details</h2>
+
+<%= form_for @user do |f| %>
+	<p><%= label_tag :first_name %></p>
+	<p><%= f.text_field :first_name %></p>
+
+	<p><%= label_tag :last_name %></p>
+	<p><%= f.text_field :last_name %></p>
+
+	<p><%= label_tag :email %></p>
+	<p><%= f.text_field :email %></p>
+
+	<p><%= label_tag :username %></p>
+	<p><%= f.text_field :username %></p>
+
+	<button>Update</button>
+<% end %>

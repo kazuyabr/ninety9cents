@@ -13,6 +13,17 @@ FRI - Documentation tidy up
 			Code tidy up
 			Final deployment
 
+TO DO
+=====
+Get the params require working in the auctions controller
+Refine and add to the About page
+Change the auction Duration table column to Integer, then refactor the way that the end time is calculated
+
+TO ASK ABOUT
+------------
+Problem with validation errors also showing the array as well as the relevant errors
+Is storing information in the session a bad idea? What are some other ways?
+
 QUESTIONS - GENERAL
 ===================
 What sort of payment model to implement?
@@ -86,14 +97,24 @@ STANDARD FEATURES
 * Create a new auction
 * Show an auction's details
 * Edit their own auctions' details but only up until 24 hours until the end
+* Bid on an auction but not their own
 * See all their auctions
 * Delete an auction if it is not yet listed or request an auction be deleted if it is already listed
-* Show other users' cars but not be able to create, edit or delete them - relevant links should be removed
-* Add pictures to the cars they have created
+
+USE JAVASCRIPT FOR
+------------------
+Countdown within 24 hours of auctioin ending
+Bidding
+Auction just ended
 
 EXTENSIONS
 ==========
-* Add confirmable and lockable (Devise functionality)
+* Prevent bidding on one's own auctions
+* Show the winning user as the auction progresses
+* Add ability to schedule auction start times
+* Add bidding history
+* Add Devise authentication (also add confirmable and lockable)
+* Add admin functionality
 * Think of ways of making the site dynamic, e.g. have a popup for bidding instead of a separate page
 * Searching, especially by category
 * Additional pictures and the ability to dynamically view them in a (popup?) window
@@ -109,6 +130,9 @@ EXTENSIONS
 * Schedule a listing start time for an auction
 * Have a username choice system to ensure that each username is unique
 * Add other login authentication options (Facebook, etc.)
+* Validate ALL user input
+* Show whether or not the reserve has been met
+* Increase the increment according to the value of the item
 
 RESOURCES
 =========
@@ -119,48 +143,6 @@ Devise for user login: https://rubygems.org/gems/devise
 Examples to draw inspiration from:
 		https://github.com/netmarkjp/rails-auction
 		https://github.com/stevenwanderski/auction
+    https://github.com/eugmill/freebay-auction-app-ruby-004
 Pundit for authorisation: https://github.com/elabs/pundit
-
-
-
-
-
-
-
-
-
-===============================================================================
-
-Some setup you must do manually if you haven't yet:
-
-  1. Ensure you have defined default url options in your environments files. Here
-     is an example of default_url_options appropriate for a development environment
-     in config/environments/development.rb:
-
-       config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
-
-     In production, :host should be set to the actual host of your application.
-
-  2. Ensure you have defined root_url to *something* in your config/routes.rb.
-     For example:
-
-       root to: "home#index"
-
-  3. Ensure you have flash messages in app/views/layouts/application.html.erb.
-     For example:
-
-       <p class="notice"><%= notice %></p>
-       <p class="alert"><%= alert %></p>
-
-  4. If you are deploying on Heroku with Rails 3.2 only, you may want to set:
-
-       config.assets.initialize_on_precompile = false
-
-     On config/application.rb forcing your application to not access the DB
-     or load models when precompiling your assets.
-
-  5. You can copy Devise views (for customization) to your app by running:
-
-       rails g devise:views
-
-===============================================================================
+Email notifications: https://howilearnedrails.wordpress.com/2014/02/25/setting-up-email-in-a-rails-4-app-with-action-mailer-in-development-and-sendgrid-in-production-using-heroku/

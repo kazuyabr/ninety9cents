@@ -1,0 +1,33 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  category: MyString
+  number: 1
+  title: MyString
+  condition: MyString
+  description: MyText
+  start_price: 1
+  current_bid: 1
+  start_time: 2014-12-13 15:24:49
+  end_time: 2014-12-13 15:24:49
+  buy_now_price: 1
+  reserve: 1
+  primary_picture: MyString
+  status: MyString
+  user_id: 1
+
+two:
+  category: MyString
+  number: 1
+  title: MyString
+  condition: MyString
+  description: MyText
+  start_price: 1
+  current_bid: 1
+  start_time: 2014-12-13 15:24:49
+  end_time: 2014-12-13 15:24:49
+  buy_now_price: 1
+  reserve: 1
+  primary_picture: MyString
+  status: MyString
+  user_id: 1

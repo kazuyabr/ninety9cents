@@ -1,0 +1,14 @@
+<h2>Change Password</h2>
+
+<%= form_tag change_password_path do |f| %>
+	<p><%= label_tag 'Old password' %></p>
+	<p><%= password_field_tag :password %></p>
+
+	<p><%= label_tag 'New password' %></p>
+	<p><%= password_field_tag :new_password %></p>
+
+	<p><%= label_tag 'Confirm new password' %></p>
+	<p><%= password_field_tag :password_confirmation %></p>
+
+	<button>Change</button>
+<% end %>

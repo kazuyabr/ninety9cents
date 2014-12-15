@@ -1,0 +1,44 @@
+<h2>New Auction</h2>
+
+<% if !@auction.errors.empty? %>
+	<div>
+		<%= @auction.errors.full_messages.each do |msg| %>
+			<h3><%= msg %></h3>
+		<% end %>
+	</div>
+<% end %>
+
+<div>
+	<%= form_for @auction do |f| %>
+
+	<p><%= f.label :title, 'Title' %></p>
+	<p><%= f.text_area :title, cols: 100, rows: 1 %></p>
+
+	<!-- Drop down box -->
+	<p><%= f.label :category, 'Category' %></p>
+	<p><%= f.collection_select :category, Auction::CATEGORIES, :to_s, :to_s, :include_blank => true %></p>
+
+	<!-- Drop down box -->
+	<p><%= f.label :condition, 'Condition' %></p>
+	<p><%= f.collection_select :condition, Auction::CONDITIONS, :to_s, :to_s, :include_blank => true %></p>
+
+	<p><%= f.label :description, 'Description' %></p>
+	<p><%= f.text_area :description, cols: 100, rows: 10 %></p>
+
+	<p><%= f.label :start_price, 'Start Price (we recommend 99 cents)' %></p>
+	<p><%= f.text_area :start_price, cols: 20, rows: 1 %></p>
+
+	<!-- Drop down box -->
+	<p><%= f.label :duration, 'Duration' %></p>
+	<p><%= f.collection_select :duration, Auction::DURATIONS, :to_s, :to_s, :include_blank => true %></p>
+
+	<p><%= f.label :reserve, 'Reserve (leave blank for no reserve)' %></p>
+	<p><%= f.text_area :reserve, cols: 20, rows: 1 %></p>
+
+	<p><%= f.label :primary_picture, 'Picture' %></p>
+	<p><%= f.file_field :primary_picture %></p>
+
+	<button>Create</button>
+
+	<% end %>
+</div>

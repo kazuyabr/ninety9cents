@@ -8,7 +8,41 @@
 </head>
 <body>
 
-<%= yield %>
+	<div>
+		<div>
+			<nav>
+				<ul>
+					<li><%= link_to 'Home', root_path %></li>
+					<li><%= link_to 'About', '/about' %></li>
+
+					<% if logged_in? %> 
+						<li><%= link_to 'New Auction', new_auction_path %></li>
+						<li><%= link_to 'Show My Auctions', show_my_auctions_path %></li>
+						<li><%= link_to 'My Account', user_path(current_user.id) %></li>
+					  <li><%= link_to 'Log Out', login_path, :method => :delete, :data => {:confirm => 'Are you sure?'} %></li>
+				  <% else %>
+				  	<li><%= link_to 'Sign Up', new_user_path %></li>
+				  	<li><%= link_to 'login', new_session_path %></li>
+				  <% end %>
+				</ul>
+			</nav>
+		</div>
+
+		<% if logged_in? %>
+			<p>Welcome, &nbsp<%= current_user.first_name %><p>
+		<% end %>
+
+		<% flash.each do |key, value| %>
+			<% if value == 'Incorrect username or password, please try again' || value == 'Account not created, please try again' %>
+				<div><%= value %></div>
+			<% else %>
+				<div><%= value %></div>
+			<% end %>
+		<% end %>
+
+		<%= yield %>
+
+	</div>
 
 </body>
 </html>

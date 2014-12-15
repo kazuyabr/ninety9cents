@@ -1,0 +1,31 @@
+<h2>Sign Up</h2>
+
+<% if !@user.errors.empty? %>
+	<div>
+		<%= @user.errors.full_messages.each do |msg| %>
+			<h3><%= msg %></h3>
+		<% end %>
+	</div>
+<% end %>
+
+<%= form_tag '/sign_up' do |f| %>
+	<p><%= label_tag :first_name %></p>
+	<p><%= text_field_tag :first_name %></p>
+
+	<p><%= label_tag :last_name %></p>
+	<p><%= text_field_tag :last_name %></p>
+
+	<p><%= label_tag :email %></p>
+	<p><%= text_field_tag :email %></p>
+
+	<p><%= label_tag :username %></p>
+	<p><%= text_field_tag :username %></p>
+
+	<p><%= label_tag :password %></p>
+	<p><%= password_field_tag :password %></p>
+
+	<p><%= label_tag :password_confirmation %></p>
+	<p><%= password_field_tag :password_confirmation %></p>
+
+	<button>Sign Up</button>
+<% end %>

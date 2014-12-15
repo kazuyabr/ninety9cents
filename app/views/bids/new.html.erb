@@ -1,0 +1,16 @@
+<h2>New Bid</h2>
+
+<p>Please enter your highest bid for this auction</p>
+<p>Note that you will be committing to buy the item up to your maximum bid price</p>
+<p>Once a bid is entered it is final and cannot be retracted</p>
+
+<div>
+	<%= form_for @bid do |f| %>
+
+	<p><%= f.label :amount, 'Enter your highest bid here' %></p>
+	<p><%= f.text_area :amount, cols: 20, rows: 1 %></p>
+
+	<button>Commit Your Bid</button>
+	<% end %>
+
+</div>

@@ -1,0 +1,15 @@
+<h2>My Auctions</h2>
+
+<% if @auctions.first %>
+	<p>Click on an auction to view its details</p>
+<% end %>
+
+<% if @auctions.first %>
+	<% @auctions.each do |auc| %>
+		<div><a href="<%= auction_path(auc) %>"><%= auc.title %></a></div>
+		<div><a href="<%= auction_path(auc) %>"><img src="<%= auc.primary_picture %>"></a></div>
+	<% end %>
+<% else %>
+		<p>You do not have any auctions yet</p>
+		<button><%= link_to 'New Auction', new_auction_path %></button>
+<% end %>

@@ -1,0 +1,7 @@
+<h2>Auctions</h2>
+
+<p>Click on an auction to view its details</p>
+
+<% @auctions.each do |auc| %>
+	<p><h3><a href="<%= auction_path(auc) %>"><%= auc.title %></a></h3></p>
+<% end %>

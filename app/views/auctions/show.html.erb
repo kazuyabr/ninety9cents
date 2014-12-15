@@ -1,0 +1,25 @@
+<h2><%= @auction.title %></h2>
+
+<div><img src="<%= @auction.primary_picture %>"></div>
+
+<div>
+	<p>Category: <%= @auction.category %></p>
+	<p>Condition: <%= @auction.condition %></p>
+	<p>Description: <%= @auction.description %></p>
+	<p>Starting Price: <%= @auction.start_price %></p>
+	<h3>Current Bid: <%= @auction.current_bid %></h3>
+	<p>Ending: <%= @auction.end_time %></p>
+</div>
+
+<% if logged_in? %>
+
+	<button><%= link_to 'Place a bid', bids_path %></button>
+<% else %>
+<!-- This will need additional work to get the auction or bid page showing again after logging in -->
+	<button><%= link_to 'login now to place a bid', new_session_path %></button>
+<% end %>
+
+<% if @auction.user_id == @current_user.id %>
+	<button><%= link_to 'Edit auction', edit_auction_path %></button>
+	<button><%= link_to 'Delete auction', @auction, :method => :delete, :data => {:confirm => 'Are you sure?'}%></button>
+<% end %>

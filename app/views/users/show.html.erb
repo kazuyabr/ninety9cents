@@ -1,0 +1,12 @@
+<h2>My Account Detais</h2>
+
+<div>
+	<p>First name: <%= @user.first_name %></p>
+	<p>Last name: <%= @user.last_name %></p>
+	<p>Email address: <%= @user.email %></p>
+	<p>Username: <%= @user.username %></p>
+</div>
+
+<button><%= link_to 'Edit details', edit_user_path %></button>
+<button><%= link_to 'Change password', change_password_path %></button>
+<button><%= link_to 'Close account', @user, :method => :delete, :data => {:confirm => 'Are you sure you want to close your account?'}%></button>
