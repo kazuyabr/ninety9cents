@@ -2,7 +2,7 @@
 
 <% if !@auction.errors.empty? %>
 	<div>
-		<%= @auction.errors.full_messages.each do |msg| %>
+		<% @auction.errors.full_messages.each do |msg| %>
 			<h3><%= msg %></h3>
 		<% end %>
 	</div>

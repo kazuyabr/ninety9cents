@@ -2,7 +2,7 @@
 
 <% if !@user.errors.empty? %>
 	<div>
-		<%= @user.errors.full_messages.each do |msg| %>
+		<% @user.errors.full_messages.each do |msg| %>
 			<h3><%= msg %></h3>
 		<% end %>
 	</div>

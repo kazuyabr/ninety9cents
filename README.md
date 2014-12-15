@@ -4,8 +4,8 @@ FRI - Get spec written as well as initial research
 			Create the (empty) app, start a GitHub repository and create the database and models
 SAT - Get basic controllers and views in place including all page links
 SUN - Get basic auction creation and bid functionality working
-MON - Build in all remaining findamental features and checks
-TUE - 
+MON - Build in all remaining fundamental features and checks
+TUE - Scheduling
 WED - Initial deployment
 			Styling - use SASS?
 THU - Extension(s)
@@ -22,9 +22,8 @@ Change the auction Duration table column to Integer, then refactor the way that 
 
 TO ASK ABOUT
 ------------
-Problem with validation errors also showing the array as well as the relevant errors
-Is storing information in the session a bad idea? What are some other ways?
-Can databases always be relied upon to return data in order?
+Is storing information in the session a bad idea? What are some other ways? Als need to know how to redirect to different places, e.g. login redirection for new auction when logged out
+How to move model logic out fo controllers?
 
 QUESTIONS - GENERAL
 ===================
@@ -105,31 +104,34 @@ STANDARD FEATURES
 
 USE JAVASCRIPT FOR
 ------------------
-Countdown within 24 hours of auctioin ending
+Countdown within 24 hours of auction ending
 Bidding
 Auction just ended
 
 EXTENSIONS
 ==========
 
+************* Add the ability of the auction owner to answer questins
+
+DONE Allow the user to enter prices with or without cents
+* Account for the time zone of the users
+* Implement a scheduler - use Psychic - for auction state changes, emails, auction start times, etc.
 DONE Handle the case where a second user enters the same high bid as the winning bidder
 DONE Prevent bidding on one's own auctions
-* Advise on an auction whether a bidder is winning or outbid and who holds the auction so far
+DONE Advise on an auction whether a bidder is winning or outbid and who holds the auction so far
 DONE Enable high bidders to increase their bid (without increasing the current bid)
-* Show bidder's high bid on the auction if they are winning
-* Add ability to schedule auction start times
+DONE Show bidder's high bid on the auction if they are winning
 * Add bidding history
 * Questions and answers about the auction
-* Schedule a listing start time for an auction
-* Show whether or not the reserve has been met
+DONE Show whether or not the reserve has been met
+
+Research "Modal" - a popup form creator
+
 * Add Devise authentication (also add confirmable and lockable)
-* Add admin functionality
-* Think of ways of making the site dynamic, e.g. have a popup for bidding instead of a separate page
 * List auctions by category
 * Searching, especially by category
 * Additional pictures and the ability to dynamically view them in a (popup?) window
-* Admin account for user request management
-* Email notification for such things as when they win/sell an item, when listings are about to close, when they get outbid, etc.
+* Admin account for user management
 * Auction watch list
 * Make the app responsive (mobile first)
 * Add a Feedback feature (name it something else - perhaps Reputation)
@@ -150,3 +152,4 @@ Examples to draw inspiration from:
     https://github.com/eugmill/freebay-auction-app-ruby-004
 Pundit for authorisation: https://github.com/elabs/pundit
 Email notifications: https://howilearnedrails.wordpress.com/2014/02/25/setting-up-email-in-a-rails-4-app-with-action-mailer-in-development-and-sendgrid-in-production-using-heroku/
+Search functionality: https://github.com/lyntco/bookbase/blob/master/app/controllers/pages_controller.rb

@@ -7,10 +7,11 @@ class BidsController < ApplicationController
 		@bid = Bid.new
 	end
 
-	# The logic in this method needs to be pulle dout and placed into the respective model
+	# The logic in this method needs to be pulled out and placed into the respective model
 	def create
 		# Set up the new bid
-		@bid = Bid.new(bid_params)
+		@bid = Bid.new
+		@bid.amount = (bid_params[:amount].to_f * 100).to_i # Convert to integer and handle input with or without cents
 		@bid.bid_time = Time.now
 		@bid.user_id = @current_user.id
 		@bid.auction_id = session[:auction_id]
@@ -34,14 +35,19 @@ class BidsController < ApplicationController
 						render :new and return
 					end
 				else
-					@highest_bid = get_highest_bid(@existing_bids)
+					@highest_bid = Utilities.get_highest_bid(@existing_bids)
 					if @highest_bid.user_id == @current_user.id
-						flash.notice = "You have increased your maximum bid to #{@bid.amount}"
+						if @bid.amount > @highest_bid.amount
+							flash.notice = "You have increased your maximum bid to #{Utilities.convert_to_price(@bid.amount)}"
+						else
+							flash.notice = "The amount entered needs to be higher than your last maximum bid, please enter an amount greater than #{Utilities.convert_to_price(@highest_bid.amount)}"
+							render :new and return
+						end
 					else
 						if @bid.amount > @highest_bid.amount # There is a new high bidder
 							@auction.current_bid = @highest_bid.amount + INCREMENT
 							@auction.save
-							flash.notice = "You are now the high bidder, your maximum bid is #{@bid.amount}"
+							flash.notice = "You are now the high bidder, your maximum bid is #{Utilities.convert_to_price(@bid.amount)}"
 						elsif @bid.amount <= @highest_bid.amount && @bid.amount > @auction.current_bid
 							# The bid should increase by the challenging bidder plus the increment
 							if @highest_bid.amount - @bid.amount < INCREMENT # Do not want to push the high bid over by less than the INCREMENT
@@ -75,20 +81,6 @@ class BidsController < ApplicationController
 	
 	def bid_params
 		params.require(:bid).permit(:amount)
-	end
-
-	def get_highest_bid(bids)
-		highest_bid = bids[0]
-		bids.each do |bid|
-			if bid.amount > highest_bid.amount
-				highest_bid = bid
-			elsif bid.amount == highest_bid.amount # case where there are two high bids of the same amount - use the earlier one
-				if bid.bid_time < highest_bid.bid_time
-					highest_bid = bid
-				end
-			end
-		end
-		return highest_bid
 	end
 
 end

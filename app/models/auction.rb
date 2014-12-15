@@ -1,5 +1,6 @@
 class Auction < ActiveRecord::Base
 	has_many :bids
+	has_many :question_answers
 	belongs_to :user
 	validates :title, :category, :condition, :description, :start_price, :duration, :presence => true, :on => :create
 

@@ -19,6 +19,6 @@ Rails.application.routes.draw do
   resources :session
   resources :auctions
   resources :users
-  #resources :bids
+  resources :questions_answers
 
 end

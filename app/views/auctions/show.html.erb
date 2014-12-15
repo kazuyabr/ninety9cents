@@ -2,14 +2,30 @@
 
 <div><img src="<%= @auction.primary_picture %>"></div>
 
+<% if @user %>
+	<% if @user.id == @current_user.id %>
+		<p>You are currently the high bidder on this auction, your highest bid is <%= Utilities.convert_to_price(@highest_bid.amount) %></p>
+	<% else %>
+		<p><%= @user.username %> is currently the high bidder of this auction </p>
+	<% end %>
+<% end %>
+
 <div>
 	<p>Category: <%= @auction.category %></p>
 	<p>Condition: <%= @auction.condition %></p>
 	<p>Description: <%= @auction.description %></p>
-	<p>Starting Price: <%= @auction.start_price %></p>
-	<h3>Current Bid: <%= @auction.current_bid %></h3>
+	<p>Starting Price: <%= Utilities.convert_to_price(@auction.start_price) %></p>
+	<h3>Current Bid: <%= Utilities.convert_to_price(@auction.current_bid) %></h3>
 	<p>Ending: <%= @auction.end_time %></p>
 </div>
+
+<% if @auction.reserve && @auction.current_bid %>
+	<% if @auction.current_bid < @auction.reserve %>
+		<p>Reserve not met</p>
+	<% else %>
+		<p>Reserve met - this item will sell!</p>
+	<% end %>
+<% end %>
 
 <% if @auction.user_id != @current_user.id %>
 	<% if logged_in? %>
@@ -24,3 +40,35 @@
 	<button><%= link_to 'Edit auction', edit_auction_path %></button>
 	<button><%= link_to 'Delete auction', @auction, :method => :delete, :data => {:confirm => 'Are you sure?'}%></button>
 <% end %>
+
+<div>
+	<h3>Questins and Answers</h3>
+
+	<% @qas.each do |qa| %>
+		<p>Q: <%= qa.question %></p>
+		<% if @qa.answered %>
+			<p>A: <%= qa.answer %></p>
+		<% else %>
+			<p>A: The auction owner has not yet answered this question</p>
+		<% end %>
+	<% end %>
+
+	<h3>Ask a question</h3>
+	<p>Please note questions cannot be edited or deleted so please write carefully!</p>
+
+	<%= form_for @qa do |f| %>
+		<p>
+			<div><%= f.text_area :question, cols: 100, rows: 10%></div>
+			<%= f.hidden_field :auction_id, :value => @auction.id %>
+		</p>
+		<button>Post question</button>
+	<% end %>
+</div>
+
+
+
+
+
+
+
+
