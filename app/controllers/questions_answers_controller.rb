@@ -17,4 +17,17 @@ class QuestionsAnswersController < ApplicationController
 		end
 	end
 
+	def update
+		@qa = QuestionsAnswer.find(params[:id])
+		@qa.answer = params[:questions_answer][:answer]
+		@qa.answered = true
+
+		if @qa.save
+			redirect_to auction_path(params[:questions_answer][:auction_id]), :notice => 'Question answered successfully'
+		else
+			flash.notice = 'Question not answered, please try again'
+			render :new
+		end
+	end
+
 end

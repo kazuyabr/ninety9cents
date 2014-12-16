@@ -16,14 +16,13 @@ FRI - Get testing in place and test
 
 TO DO
 =====
-Get the params require working in the auctions controller
 Refine and add to the About page
 Change the auction Duration table column to Integer, then refactor the way that the end time is calculated
 
 TO ASK ABOUT
 ------------
-Is storing information in the session a bad idea? What are some other ways? Als need to know how to redirect to different places, e.g. login redirection for new auction when logged out
-How to move model logic out fo controllers?
+Is storing information in the session a bad idea? What are some other ways? See the way it has been done in the questions and answers. Also need to know how to redirect to different places, e.g. login redirection for new auction when logged out
+How to move model logic out of controllers?
 
 QUESTIONS - GENERAL
 ===================
@@ -107,11 +106,12 @@ USE JAVASCRIPT FOR
 Countdown within 24 hours of auction ending
 Bidding
 Auction just ended
+Picture popup to scroll through them
 
 EXTENSIONS
 ==========
 
-************* Add the ability of the auction owner to answer questins
+Check photo uploading
 
 DONE Allow the user to enter prices with or without cents
 * Account for the time zone of the users
@@ -121,16 +121,17 @@ DONE Prevent bidding on one's own auctions
 DONE Advise on an auction whether a bidder is winning or outbid and who holds the auction so far
 DONE Enable high bidders to increase their bid (without increasing the current bid)
 DONE Show bidder's high bid on the auction if they are winning
-* Add bidding history
-* Questions and answers about the auction
+DONE Add bidding history
+DONE Questions and answers about the auction
 DONE Show whether or not the reserve has been met
 
 Research "Modal" - a popup form creator
+Research Foundation for styling
 
 * Add Devise authentication (also add confirmable and lockable)
 * List auctions by category
 * Searching, especially by category
-* Additional pictures and the ability to dynamically view them in a (popup?) window
+* Additional pictures
 * Admin account for user management
 * Auction watch list
 * Make the app responsive (mobile first)

@@ -15,6 +15,8 @@ Rails.application.routes.draw do
   get '/bids' => 'bids#new'
   post '/bids' => 'bids#create'
 
+  get '/bid_history' => 'bid_historys#show'
+
   resources :pages
   resources :session
   resources :auctions

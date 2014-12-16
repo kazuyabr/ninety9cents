@@ -12,7 +12,8 @@ class BidsController < ApplicationController
 		# Set up the new bid
 		@bid = Bid.new
 		@bid.amount = (bid_params[:amount].to_f * 100).to_i # Convert to integer and handle input with or without cents
-		@bid.bid_time = Time.now
+		@time = Time.now
+		@bid.bid_time = @time
 		@bid.user_id = @current_user.id
 		@bid.auction_id = session[:auction_id]
 
@@ -20,6 +21,9 @@ class BidsController < ApplicationController
 		@auction = Auction.find(session[:auction_id])
 		@existing_bids = Bid.where(:auction_id => session[:auction_id])
 		
+		# Create a new bid history entry
+		@bid_history = BidHistory.new
+
 		if @auction.user_id == @current_user.id
 			flash.notice = 'You cannot bid on your own auction'
 			redirect_to auction_path(session[:auction_id]) and return
@@ -28,6 +32,11 @@ class BidsController < ApplicationController
 				if @existing_bids.length == 0
 					if @bid.amount >= @auction.start_price
 						@auction.current_bid = @auction.start_price
+						@bid_history.amount = @auction.current_bid
+						@bid_history.bid_time = @time
+						@bid_history.username = @current_user.username
+						@bid_history.auction_id = session[:auction_id]
+						@bid_history.save
 						@auction.save
 						flash.notice = 'You are the first bidder'
 					else
@@ -46,15 +55,25 @@ class BidsController < ApplicationController
 					else
 						if @bid.amount > @highest_bid.amount # There is a new high bidder
 							@auction.current_bid = @highest_bid.amount + INCREMENT
+							@bid_history.amount = @auction.current_bid
+							@bid_history.bid_time = @time
+							@bid_history.username = @current_user.username
+							@bid_history.auction_id = session[:auction_id]
+							@bid_history.save
 							@auction.save
 							flash.notice = "You are now the high bidder, your maximum bid is #{Utilities.convert_to_price(@bid.amount)}"
 						elsif @bid.amount <= @highest_bid.amount && @bid.amount > @auction.current_bid
 							# The bid should increase by the challenging bidder plus the increment
-							if @highest_bid.amount - @bid.amount < INCREMENT # Do not want to push the high bid over by less than the INCREMENT
+							if @highest_bid.amount - @bid.amount < INCREMENT # Do not want to push the high bid over by less than the INCREMENT as this would increase the maximum bid without asking the high bidder to approve
 								@auction.current_bid = @highest_bid.amount
 							else
 								@auction.current_bid = @bid.amount + INCREMENT
 							end
+							@bid_history.amount = @auction.current_bid
+							@bid_history.bid_time = @time
+							@bid_history.username = @current_user.username
+							@bid_history.auction_id = session[:auction_id]
+							@bid_history.save
 							@auction.save
 							flash.notice = 'You were outbid, please enter a higher amount'
 						else

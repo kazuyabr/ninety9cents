@@ -1,0 +1,5 @@
+<h2>Bid History</h2>
+
+<% @bids.each do |bid| %>
+	<p><% bid.username %> <%= Utilities.convert_to_price(bid.amount) %> <%= bid.bid_time %></p>
+<% end %>

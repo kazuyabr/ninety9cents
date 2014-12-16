@@ -10,6 +10,8 @@
 	<% end %>
 <% end %>
 
+<button><%= link_to 'View Bid History', bid_history_path %></button>
+
 <div>
 	<p>Category: <%= @auction.category %></p>
 	<p>Condition: <%= @auction.condition %></p>
@@ -41,18 +43,28 @@
 	<button><%= link_to 'Delete auction', @auction, :method => :delete, :data => {:confirm => 'Are you sure?'}%></button>
 <% end %>
 
-<div>
-	<h3>Questins and Answers</h3>
+<h3>Questions and Answers</h3>
 
-	<% @qas.each do |qa| %>
-		<p>Q: <%= qa.question %></p>
-		<% if @qa.answered %>
-			<p>A: <%= qa.answer %></p>
+<% @qas.each do |qa| %>
+	<p>Q: <%= qa.question %></p>
+	<% if qa.answered %>
+		<p>A: <%= qa.answer %></p>
+	<% else %>
+		<% if @auction.user_id == @current_user.id %>
+			<%= form_for qa do |f| %>
+				<p>
+					<div><%= f.text_area :answer, cols: 100, rows: 5%></div>
+					<%= f.hidden_field :auction_id, :value => @auction.id %>
+				</p>
+				<button>Answer this question</button>
+			<% end %>
 		<% else %>
 			<p>A: The auction owner has not yet answered this question</p>
 		<% end %>
 	<% end %>
+<% end %>
 
+<% if @auction.user_id != @current_user.id %>
 	<h3>Ask a question</h3>
 	<p>Please note questions cannot be edited or deleted so please write carefully!</p>
 
@@ -63,8 +75,7 @@
 		</p>
 		<button>Post question</button>
 	<% end %>
-</div>
-
+<% end %>
 
 
 

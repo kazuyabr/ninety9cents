@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  amount: 1
+  bid_time: 2014-12-16 12:31:50
+  username: MyString
+  auction_id: 1
+
+two:
+  amount: 1
+  bid_time: 2014-12-16 12:31:50
+  username: MyString
+  auction_id: 1
