@@ -38,6 +38,9 @@
 	<p><%= f.label :primary_picture, 'Picture' %></p>
 	<p><%= f.file_field :primary_picture %></p>
 
+	<p><%= f.label :start_time, 'Schedule a start time (leave alone to list immediately)' %></p>
+	<p><%= f.datetime_select :start_time %></p>
+
 	<button>Create</button>
 
 	<% end %>

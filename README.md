@@ -18,6 +18,9 @@ TO DO
 =====
 Refine and add to the About page
 Change the auction Duration table column to Integer, then refactor the way that the end time is calculated
+Clean up any puts statements in controllers, etc
+Before deploying remove the hard coded scheduler for auction end time (duration)
+Refactor large blocks of code in controllers - add to models
 
 TO ASK ABOUT
 ------------
@@ -111,11 +114,16 @@ Picture popup to scroll through them
 EXTENSIONS
 ==========
 
-Check photo uploading
+Check photo uploading (cloudinary)
 
 DONE Allow the user to enter prices with or without cents
 * Account for the time zone of the users
-* Implement a scheduler - use Psychic - for auction state changes, emails, auction start times, etc.
+* Email notifications - Send Grid
+* Show auction end time once ended
+DONE Auctions belonging to a user - place in My Account
+* Auction watch list - add when a user clicks ona link or places a bid
+DONE Implement a scheduler for auction state changes, emails, auction start times, etc.
+DONE Schedule auction start times
 DONE Handle the case where a second user enters the same high bid as the winning bidder
 DONE Prevent bidding on one's own auctions
 DONE Advise on an auction whether a bidder is winning or outbid and who holds the auction so far
@@ -128,12 +136,12 @@ DONE Show whether or not the reserve has been met
 Research "Modal" - a popup form creator
 Research Foundation for styling
 
+* Allow the runner up bidder to enter another bid for a short time after the auction ends
 * Add Devise authentication (also add confirmable and lockable)
 * List auctions by category
 * Searching, especially by category
 * Additional pictures
 * Admin account for user management
-* Auction watch list
 * Make the app responsive (mobile first)
 * Add a Feedback feature (name it something else - perhaps Reputation)
 * Payment facility for users and bidders
@@ -154,3 +162,4 @@ Examples to draw inspiration from:
 Pundit for authorisation: https://github.com/elabs/pundit
 Email notifications: https://howilearnedrails.wordpress.com/2014/02/25/setting-up-email-in-a-rails-4-app-with-action-mailer-in-development-and-sendgrid-in-production-using-heroku/
 Search functionality: https://github.com/lyntco/bookbase/blob/master/app/controllers/pages_controller.rb
+Scheduler: https://github.com/jmettraux/rufus-scheduler

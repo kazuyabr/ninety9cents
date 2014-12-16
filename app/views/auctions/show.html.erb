@@ -10,6 +10,10 @@
 	<% end %>
 <% end %>
 
+<% if @auction.status == 'ended' %>
+	<p>This auction has ended</p>
+<% end %>
+
 <button><%= link_to 'View Bid History', bid_history_path %></button>
 
 <div>
@@ -29,7 +33,7 @@
 	<% end %>
 <% end %>
 
-<% if @auction.user_id != @current_user.id %>
+<% if @auction.status == 'live' && @auction.user_id != @current_user.id %>
 	<% if logged_in? %>
 		<button><%= link_to 'Place a bid', bids_path %></button>
 	<% else %>
@@ -70,7 +74,7 @@
 
 	<%= form_for @qa do |f| %>
 		<p>
-			<div><%= f.text_area :question, cols: 100, rows: 10%></div>
+			<div><%= f.text_area :question, cols: 100, rows: 5%></div>
 			<%= f.hidden_field :auction_id, :value => @auction.id %>
 		</p>
 		<button>Post question</button>

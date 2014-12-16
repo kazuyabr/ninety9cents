@@ -1,4 +1,4 @@
-<h2>My Account Detais</h2>
+<h2>My Account Details</h2>
 
 <div>
 	<p>First name: <%= @user.first_name %></p>
@@ -10,3 +10,17 @@
 <button><%= link_to 'Edit details', edit_user_path %></button>
 <button><%= link_to 'Change password', change_password_path %></button>
 <button><%= link_to 'Close account', @user, :method => :delete, :data => {:confirm => 'Are you sure you want to close your account?'}%></button>
+
+<h2>My Auctions</h2>
+
+<p>Click on an auction to view its details</p>
+
+<% @auctions.each do |auc| %>
+	<p><h3><a href="<%= auction_path(auc) %>"><%= auc.title %></a></h3></p>
+<% end %>
+
+
+
+
+
+<h2>My Watch List</h2>
