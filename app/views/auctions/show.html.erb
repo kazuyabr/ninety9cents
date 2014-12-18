@@ -1,104 +1,125 @@
 <h2><%= @auction.title %></h2>
 
-<img src="<%= @auction.primary_picture %>">
 
-<% if @user && @auction.status == 'live' %>
-	<% if @user.id == @current_user.id %>
-		<p>You are currently the high bidder on this auction, your highest bid is <%= Utilities.convert_to_price(@highest_bid.amount) %></p>
-	<% else %>
-		<p><%= @user.username %> is currently the high bidder of this auction </p>
-	<% end %>
-<% end %>
-
-<button><%= link_to 'View Bid History', bid_history_path %></button>
-
-<p>Category: <%= @auction.category %></p>
-<p>Condition: <%= @auction.condition %></p>
-<p>Description: <%= @auction.description %></p>
-<p>Starting Price: <%= Utilities.convert_to_price(@auction.start_price) %></p>
-<h3>Current Bid: <%= Utilities.convert_to_price(@auction.current_bid) %></h3>
-<% if @auction.status == 'live' %>
-	<p>Ending: <%= @auction.end_time.strftime("%B %d %Y, %I:%M %p") %></p>
-<% else %>
-	<p>Ended: <%= @auction.end_time.strftime("%B %d %Y, %I:%M %p") %></p>
-<% end %>
-
-<% if @auction.status == 'live' && @auction.reserve > 0 && @auction.current_bid %>
-	<% if @auction.current_bid < @auction.reserve %>
-		<p>Reserve not met</p>
-	<% else %>
-		<p>Reserve met - this item will sell!</p>
-	<% end %>
-<% end %>
-
-<% if @auction.status == 'ended' %>
-	<% if !@auction.current_bid %>
-		<p>This auction did not sell - no bids were placed.</p>
-	<% elsif @auction.reserve > 0 && @auction.current_bid < @auction.reserve %>
-		<p>This auction did not sell - the reserve price was not met.</p>
-	<% elsif @user.id == @current_user.id %> <!-- Checking the user of the high bid -->
-		<p>Congratulations - you are the winner!</p>
-	<% elsif @current_user_bid %>
-		<p>Sorry you were outbid on this auction, better luck next time.</p>
-	<% else %>
-		<p>This auction has ended.</p>
-	<% end %>
-<% end %>
-
-<% if @auction.status == 'live' && @auction.user_id != @current_user.id %>
-	<% if logged_in? %>
-		<button><%= link_to 'Place a bid', bids_path %></button>
-		<% if !@watcher.first %>
-			<button><%= link_to 'Watch this auction', watcher_path %></button>
+<div>
+	<% if @auction.status == 'ended' %>
+		<% if !@auction.current_bid %>
+			<p>This auction did not sell - no bids were placed.</p>
+		<% elsif @auction.reserve > 0 && @auction.current_bid < @auction.reserve %>
+			<p>This auction did not sell - the reserve price was not met.</p>
+		<% elsif @user.id == @current_user.id %> <!-- Checking the user of the high bid -->
+			<p>Congratulations - you are the winner!</p>
+		<% elsif @current_user_bid %>
+			<p>Sorry you were outbid on this auction, better luck next time.</p>
 		<% else %>
-			<button><%= link_to 'Un-watch this auction', @watcher.first, :method => :delete, :data => {:confirm => 'Are you sure?'}%></button>
+			<p>This auction has ended.</p>
 		<% end %>
-	<% else %>
-	<!-- This will need additional work to get the auction or bid page showing again after logging in -->
-		<button><%= link_to 'login now to place a bid', new_session_path %></button>
 	<% end %>
-<% end %>
+</div>
 
-<% if @auction.user_id == @current_user.id %>
-	<button><%= link_to 'Edit auction', edit_auction_path %></button>
-	<% if @auction.status == 'scheduled' %>
-		<button><%= link_to 'Delete auction', @auction, :method => :delete, :data => {:confirm => 'Are you sure?'}%></button>
-	<% end %>
-<% end %>
 
-<h3>Questions and Answers</h3>
+<div class="span1">
+	<img src="<%= @auction.primary_picture %>">
+</div>
 
-<% @qas.each do |qa| %>
-	<p>Q: <%= qa.question %></p>
-	<% if qa.answered %>
-		<p>A: <%= qa.answer %></p>
-	<% else %>
-		<% if @auction.user_id == @current_user.id %>
-			<%= form_for qa do |f| %>
-				<p>
-					<div><%= f.text_area :answer, cols: 100, rows: 5%></div>
-					<%= f.hidden_field :auction_id, :value => @auction.id %>
-				</p>
-				<button>Answer this question</button>
+
+<div class="span2">
+	<h3>Current Bid: <%= Utilities.convert_to_price(@auction.current_bid) %></h3>
+
+	<% if @auction.status == 'live' && @auction.user_id != @current_user.id %>
+		<% if logged_in? %>
+			<button><%= link_to 'Place a bid', bids_path %></button>
+			<% if !@watcher.first %>
+				<button><%= link_to 'Watch this auction', watcher_path %></button>
+			<% else %>
+				<button><%= link_to 'Un-watch this auction', @watcher.first, :method => :delete, :data => {:confirm => 'Are you sure?'}%></button>
 			<% end %>
 		<% else %>
-			<p>A: The auction owner has not yet answered this question</p>
+		<!-- This will need additional work to get the auction or bid page showing again after logging in -->
+			<button><%= link_to 'login now to place a bid', new_session_path %></button>
 		<% end %>
 	<% end %>
-<% end %>
 
-<% if @auction.user_id != @current_user.id %>
-	<h3>Ask a question</h3>
-	<p>Please note questions cannot be edited or deleted so please write carefully!</p>
-
-	<%= form_for @qa do |f| %>
-		<p>
-			<div><%= f.text_area :question, cols: 100, rows: 5%></div>
-			<%= f.hidden_field :auction_id, :value => @auction.id %>
-		</p>
-		<button>Post question</button>
+	<% if @auction.status == 'live' %>
+		<p>Ending: <%= @auction.end_time.strftime("%B %d %Y, %I:%M %p") %></p>
+	<% else %>
+		<p>Ended: <%= @auction.end_time.strftime("%B %d %Y, %I:%M %p") %></p>
 	<% end %>
-<% end %>
+
+	<% if @auction.status == 'live' && @auction.reserve > 0 && @auction.current_bid %>
+		<% if @auction.current_bid < @auction.reserve %>
+			<p>Reserve not met</p>
+		<% else %>
+			<p>Reserve met - this item will sell!</p>
+		<% end %>
+	<% end %>
+
+	<% if @user && @auction.status == 'live' %>
+		<% if @user.id == @current_user.id %>
+			<p>You are currently the high bidder on this auction, your highest bid is <%= Utilities.convert_to_price(@highest_bid.amount) %></p>
+		<% else %>
+			<p><%= @user.username %> is currently the high bidder of this auction </p>
+		<% end %>
+	<% end %>
+
+	<p>Category: <%= @auction.category %></p>
+	<p>Condition: <%= @auction.condition %></p>
+	<p>Starting Price: <%= Utilities.convert_to_price(@auction.start_price) %></p>
+
+	<button><%= link_to 'View Bid History', bid_history_path %></button>
+
+	<% if @auction.user_id == @current_user.id %>
+		<% if @auction.status != 'ended' %>
+			<button><%= link_to 'Edit auction', edit_auction_path %></button>
+		<% end %>
+		<% if @auction.status == 'scheduled' %>
+			<button><%= link_to 'Delete auction', @auction, :method => :delete, :data => {:confirm => 'Are you sure?'}%></button>
+		<% end %>
+	<% end %>
+</div>
+
+
+<div>
+	<h3>Description</h3>
+	<p><%= @auction.description %></p>
+</div>
+
+
+<div>
+	<h3>Questions and Answers</h3>
+
+	<% @qas.each do |qa| %>
+		<p>Q: <%= qa.question %></p>
+		<% if qa.answered %>
+			<p>A: <%= qa.answer %></p>
+		<% else %>
+			<% if @auction.user_id == @current_user.id %>
+				<%= form_for qa do |f| %>
+					<p>
+						<div><%= f.text_area :answer, cols: 100, rows: 5%></div>
+						<%= f.hidden_field :auction_id, :value => @auction.id %>
+					</p>
+					<button>Answer this question</button>
+				<% end %>
+			<% else %>
+				<p>A: The auction owner has not yet answered this question</p>
+			<% end %>
+		<% end %>
+	<% end %>
+
+	<% if @auction.user_id != @current_user.id %>
+		<h3>Ask a question</h3>
+		<p>Please note questions cannot be edited or deleted so please write carefully!</p>
+
+		<%= form_for @qa do |f| %>
+			<p>
+				<div><%= f.text_area :question, cols: 100, rows: 5%></div>
+				<%= f.hidden_field :auction_id, :value => @auction.id %>
+			</p>
+			<button>Post question</button>
+		<% end %>
+	<% end %>
+</div>
 
 
 

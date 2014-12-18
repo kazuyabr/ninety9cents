@@ -62,6 +62,7 @@ class AuctionsController < ApplicationController
 			# Schedule the auction to start after the specified duration has elapsed
 			scheduler = Rufus::Scheduler.new
 			# For production the next line should be scheduler.at @auction.start_time do
+			# This has not yet been impelmented due to the demo to be performed Friday 20/12/14
 			scheduler.in '30s' do
 				puts ""
 				puts "Auction started.................................................."
@@ -74,6 +75,7 @@ class AuctionsController < ApplicationController
 		# Schedule the auction to end after the specified duration has elapsed
 		scheduler = Rufus::Scheduler.new
 		# For production the next line should be scheduler.at @auction.end_time do
+		# This has not yet been impelmented due to the demo to be performed Friday 20/12/14
 		scheduler.in '60s' do
 			puts ""
 			puts "Auction ended.................................................."

@@ -140,6 +140,8 @@ Research Foundation for styling
 EXTENSIONS
 ==========
 
+* Add a generic "no picture" picture if one is not provided on the new auction page
+* Add seller information to each auction
 * Handle all time zones
 * Add Buy It Now to the auction view and new pages
 * List auctions by category
@@ -172,3 +174,9 @@ Scheduler: https://github.com/jmettraux/rufus-scheduler
 Rails email info: http://guides.rubyonrails.org/action_mailer_basics.html
 Email server for SMTP mail: https://sendgrid.com/docs/User_Guide/index.html
 Time zone manipulation: http://thisbythem.com/blog/clientside-timezone-detection/
+Scrolling photo banner: http://designshack.net/articles/css/infinitephotobanner/
+Buttons:
+    http://cssdeck.com/labs/fancy-3d-button
+		http://www.sanwebe.com/2013/01/40-css-buttons-from-codepen
+Other effects:
+		http://www.css3.info/preview/box-shadow/
