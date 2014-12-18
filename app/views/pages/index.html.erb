@@ -4,7 +4,7 @@
 <button class="bigbutton"><%= link_to 'List an Auction', new_auction_path %></button>
 
 <div class="photobanner">
-	<% if @auctions.length == 10 %>
+	<% if @auctions.length == 5 %>
 	  <a href="<%= auction_path(@auctions[0]) %>"><img class="first" src="<%= @auctions[0].primary_picture %>" alt="">
 	  <a href="<%= auction_path(@auctions[1]) %>"><img src="<%= @auctions[1].primary_picture %>" alt="">
 	  <a href="<%= auction_path(@auctions[2]) %>"><img src="<%= @auctions[2].primary_picture %>" alt="">
