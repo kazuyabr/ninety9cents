@@ -33,7 +33,7 @@ class UsersController < ApplicationController
 
 		if @user.save
 			session[:user_id] = @user.id
-			UserMailer.welcome_email(@user).deliver
+			#UserMailer.welcome_email(@user).deliver
 			redirect_to root_path, :notice => 'New account created successfully'
 		else
 			flash.notice = 'Account not created, please try again'
@@ -43,7 +43,6 @@ class UsersController < ApplicationController
 
 	def edit
 		@user = User.find(params[:id])
-		UserMailer.welcome_email(@user).deliver
 	end
 
 	def update
