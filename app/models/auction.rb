@@ -3,6 +3,8 @@ class Auction < ActiveRecord::Base
 	has_many :question_answers
 	has_many :bid_histories
 	belongs_to :user
+	has_many :watchers
+	mount_uploader :primary_picture, PictureUploader
 	validates :title, :category, :condition, :description, :start_price, :duration, :presence => true, :on => :create
 
 	CATEGORIES = ['Antiques',

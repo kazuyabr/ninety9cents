@@ -20,6 +20,11 @@ class BidsController < ApplicationController
 		# Fetch the auction and its associated bids
 		@auction = Auction.find(session[:auction_id])
 		@existing_bids = Bid.where(:auction_id => session[:auction_id])
+
+		# Add the auction to the bidder's watch list
+		@watcher = Watcher.new
+		@watcher.auction_id = session[:auction_id]
+		@watcher.user_id = @current_user.id
 		
 		# Create a new bid history entry
 		@bid_history = BidHistory.new
@@ -89,6 +94,7 @@ class BidsController < ApplicationController
 				end
 
 				if @bid.save
+					@watcher.save
 					redirect_to auction_path(session[:auction_id])
 				else
 					flash.notice = 'Bid not entered, please try again'

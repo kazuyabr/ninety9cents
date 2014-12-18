@@ -17,19 +17,18 @@ FRI - Get testing in place and test
 TO DO
 =====
 Refine and add to the About page
-Change the auction Duration table column to Integer, then refactor the way that the end time is calculated
 Clean up any puts statements in controllers, etc
 Before deploying remove the hard coded scheduler for auction end time (duration)
 Refactor large blocks of code in controllers - add to models
+Update links in emails to point to the relevant Heroku links
+Research "Modal" - a popup form creator
+Research Foundation for styling
+Update model information
 
 TO ASK ABOUT
 ------------
 Is storing information in the session a bad idea? What are some other ways? See the way it has been done in the questions and answers. Also need to know how to redirect to different places, e.g. login redirection for new auction when logged out
 How to move model logic out of controllers?
-
-QUESTIONS - GENERAL
-===================
-What sort of payment model to implement?
 
 WDI PROJECT THREE - 99CENTS
 ===========================
@@ -110,18 +109,20 @@ Countdown within 24 hours of auction ending
 Bidding
 Auction just ended
 Picture popup to scroll through them
+Limit days of the month for those months with 30 days or less (new auction page)
 
-EXTENSIONS
-==========
+CHECKLIST
+=========
 
 Check photo uploading (cloudinary)
 
 DONE Allow the user to enter prices with or without cents
-* Account for the time zone of the users
-* Email notifications - Send Grid
-* Show auction end time once ended
+DONE Add final status of the auction:
+* Email notifications for the following scenarios:
+	>>>>>>>>>>> Get working and add contents for email views
 DONE Auctions belonging to a user - place in My Account
-* Auction watch list - add when a user clicks ona link or places a bid
+DONE Prevent an auction from being deleted once it is live
+DONE Auction watch list - add/remove when a user clicks on a "Watch Now" link or places a bid
 DONE Implement a scheduler for auction state changes, emails, auction start times, etc.
 DONE Schedule auction start times
 DONE Handle the case where a second user enters the same high bid as the winning bidder
@@ -136,11 +137,16 @@ DONE Show whether or not the reserve has been met
 Research "Modal" - a popup form creator
 Research Foundation for styling
 
-* Allow the runner up bidder to enter another bid for a short time after the auction ends
-* Add Devise authentication (also add confirmable and lockable)
+EXTENSIONS
+==========
+
+* Handle all time zones
+* Add Buy It Now to the auction view and new pages
 * List auctions by category
 * Searching, especially by category
 * Additional pictures
+* Allow the runner up bidder to enter another bid for a short time after the auction ends
+* Add Devise authentication (also add confirmable and lockable)
 * Admin account for user management
 * Make the app responsive (mobile first)
 * Add a Feedback feature (name it something else - perhaps Reputation)
@@ -155,7 +161,7 @@ RESOURCES
 ### The following resources are associated with this project:
 
 Devise for user login: https://rubygems.org/gems/devise
-Examples to draw inspiration from:
+Example auction site projects to draw inspiration from:
 		https://github.com/netmarkjp/rails-auction
 		https://github.com/stevenwanderski/auction
     https://github.com/eugmill/freebay-auction-app-ruby-004
@@ -163,3 +169,6 @@ Pundit for authorisation: https://github.com/elabs/pundit
 Email notifications: https://howilearnedrails.wordpress.com/2014/02/25/setting-up-email-in-a-rails-4-app-with-action-mailer-in-development-and-sendgrid-in-production-using-heroku/
 Search functionality: https://github.com/lyntco/bookbase/blob/master/app/controllers/pages_controller.rb
 Scheduler: https://github.com/jmettraux/rufus-scheduler
+Rails email info: http://guides.rubyonrails.org/action_mailer_basics.html
+Email server for SMTP mail: https://sendgrid.com/docs/User_Guide/index.html
+Time zone manipulation: http://thisbythem.com/blog/clientside-timezone-detection/

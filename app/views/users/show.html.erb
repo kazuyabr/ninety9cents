@@ -15,12 +15,16 @@
 
 <p>Click on an auction to view its details</p>
 
-<% @auctions.each do |auc| %>
-	<p><h3><a href="<%= auction_path(auc) %>"><%= auc.title %></a></h3></p>
+<% @auctions.each do |auction| %>
+	<p><h3><a href="<%= auction_path(auction) %>"><%= auction.title %></a></h3></p>
 <% end %>
 
-
-
-
-
 <h2>My Watch List</h2>
+
+<p>Click on an auction to view its details</p>
+
+<% if @watched_auctions %>
+	<% @watched_auctions.each do |watched| %>
+		<p><h3><a href="<%= auction_path(watched) %>"><%= watched.title %></a></h3></p>
+	<% end %>
+<% end %>

@@ -17,6 +17,9 @@ Rails.application.routes.draw do
 
   get '/bid_history' => 'bid_historys#show'
 
+  get '/watcher' => 'watchers#new'
+  delete '/watcher' => 'watchers#destroy'
+
   resources :pages
   resources :session
   resources :auctions

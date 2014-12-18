@@ -5,6 +5,7 @@ class AuctionsController < ApplicationController
 		@auctions = Auction.where(:status => 'live')
 	end
 
+	# This method is currently not being used
 	def show_ended
 		@auctions = Auction.where(:status => 'ended')
 	end
@@ -13,10 +14,20 @@ class AuctionsController < ApplicationController
 		@auction = Auction.find(params[:id])
 		session[:auction_id] = @auction.id
 		@existing_bids = Bid.where(:auction_id => @auction.id)
+
+		@current_user_bid = false
+		@existing_bids.each do |bid|
+			if bid.user_id == @current_user.id
+				@current_user_bid = true
+			end
+		end
+
 		@highest_bid = Utilities.get_highest_bid(@existing_bids)
 		if @highest_bid
 			@user = User.find(@highest_bid.user_id)
 		end
+		
+		@watcher = Watcher.where(:auction_id => @auction.id).where(:user_id => @current_user)
 		@qas = QuestionsAnswer.where(:auction_id => @auction.id)
 		@qa = QuestionsAnswer.new
 	end
@@ -91,8 +102,12 @@ class AuctionsController < ApplicationController
 
 	def destroy
 		@auction = Auction.find(params[:id])
-		@auction.destroy
-		redirect_to root_path, :notice => 'Auction deleted successfully'
+		if @auction.status == 'scheduled'
+			@auction.destroy
+			redirect_to root_path, :notice => 'Auction deleted successfully'
+		else
+			redirect_to root_path, :notice => 'Sorry this auction can no longer be deleted'
+		end
 	end
 
 	private

@@ -4,6 +4,17 @@ class UsersController < ApplicationController
 	def show
 		@user = User.find(params[:id])
 		@auctions = Auction.where(:user_id => @current_user.id)
+		@watchers = Watcher.where(:user_id => @current_user.id)
+
+		if @watchers.first # Will it be an empty array or nil?
+			@watched_auctions = Auction.where(:id => @watchers[0][:auction_id])
+			counter = 1
+			while counter < @watchers.length
+				temp = Auction.where(:id => @watchers[counter][:auction_id]).first
+				@watched_auctions << temp
+				counter += 1
+			end
+		end
 	end
 
 	def new
@@ -22,6 +33,7 @@ class UsersController < ApplicationController
 
 		if @user.save
 			session[:user_id] = @user.id
+			UserMailer.welcome_email(@user).deliver
 			redirect_to root_path, :notice => 'New account created successfully'
 		else
 			flash.notice = 'Account not created, please try again'
@@ -31,6 +43,7 @@ class UsersController < ApplicationController
 
 	def edit
 		@user = User.find(params[:id])
+		UserMailer.welcome_email(@user).deliver
 	end
 
 	def update
