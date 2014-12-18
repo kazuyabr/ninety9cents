@@ -1,6 +1,6 @@
 <h2><%= @auction.title %></h2>
 
-<div><img src="<%= @auction.primary_picture %>"></div>
+<img src="<%= @auction.primary_picture %>">
 
 <% if @user && @auction.status == 'live' %>
 	<% if @user.id == @current_user.id %>

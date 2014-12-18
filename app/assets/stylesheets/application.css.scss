@@ -14,3 +14,52 @@
  *= require_self
  */
 
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+body {
+	background: image-url('Snowing.jpg');
+	background-position: center top;
+	background-size: 100% auto;
+}
+
+.main {
+	font-family: verdana;
+	color: black;
+	text-align: center;
+	margin-top: 1em;
+	max-width: 800px;
+	margin: 0 auto;
+	background-color: white;
+	height: 800px;
+}
+
+.underlay2 {
+	background-color: #CC0000;
+	width: 100%;
+	margin: auto;
+	margin-bottom: 10px;
+	padding: 10px;
+}
+
+.box1 {
+	height: 500px;
+}
+
+.box2 {
+	height: 300px;
+}
+
+.box2 img {
+	width: 100%;
+  height: auto;
+}
+
+
+
+
+
+
+
+
+
